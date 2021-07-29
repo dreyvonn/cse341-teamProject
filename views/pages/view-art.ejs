@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Art Details</title>
+    <link rel="stylesheet" type="text/css" href="/css/main.css" />
+</head>
+<body>
+    <%- include ('../includes/navBar.ejs') %>
+    <div class="art-view">
+        <% if (art !== null) { %>
+        <article>
+            <div>
+                <img src="<%= art.image %>" alt="<%= art.title %>">
+            </div><br> 
+            <header>
+                <h1><%= art.title %></h1>
+            </header>
+            <div>
+                <p><%= art.description %></p>
+            </div>
+            <p><%= tags %></p>
+        </article>
+        <% } else { %>
+        <h1>No artwork found!</h1>
+        <% } %>
+    </div>
+</body>
+</html>

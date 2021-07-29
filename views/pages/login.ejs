@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery Login</title>
+    <link rel="stylesheet" href="/css/auth.css">
+    <link rel="stylesheet" type="text/css" href="/css/main.css" />
+</head>
+<body>
+    <%- include('../includes/navBar.ejs') %>
+
+    <% if (errorMessage) { %>
+        <div class="error-message"><%= errorMessage %></div>
+    <% } %>
+    <div class="">
+        <form class="login-form" action="/login" method="POST">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+            <div class="">
+                <label for="email" class="label">E-Mail</label>
+                <input type="email" name="email" id="email" class="input"> 
+            </div>
+            <div class="">
+                <label for="password" class="label">Password</label>
+                <input type="password" name="password" id="password" class="input"><br><br>
+            </div>
+            <button class="" type="submit">Login</button>
+        </form>
+    </div>
+    
+</body>
+</html>

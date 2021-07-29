@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" type="text/css" href="/css/main.css" />
+
+</head>
+<body>
+    <%- include ('../includes/navBar.ejs') %>
+    <div class="jumbotron text-center">
+        <div class="container">
+            <h1><%= title %></h1>
+        </div>
+    </div>
+
+    <% if(owner === null){owner = false} %>
+
+    <div class="container">
+        <% if(owner){ %>
+          <form action="/add-art" method=get>
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+              <button type="submit">Add Art</button>
+           </form>
+        <%}%>
+          <ul class="gallery">
+            <% for(i = 0; i < itemList.length; i++){ %>
+
+                <% const tagArray = itemList[i].tags; %>
+                <% let tagString = ""; %>
+                <% for(j = 0; j < tagArray.length; j++){ %>
+                    <% if(j){ %>
+                        <% tagString += ", "; %>
+                    <% } tagString += tagArray[j];} %>
+
+              <li class="galleryItem">  
+                <form action="/view-art" method=get>
+                  <button type="submit" class="titleLink"><%= itemList[i].title %></button><br>
+                  <input type="image" class="submitImage" src= "/<%= itemList[i].image %>">
+                  <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                  <input type="hidden" name="artId" value="<%= itemList[i]._id %>">
+                </form>         
+                <p><%= itemList[i].dateAdded.toDateString() %></p>
+                <% if(!owner) { %>
+                <p><%= usernames[i] %></p>
+                <%}%>
+                <p>Tags: <%= tagString %></p>
+                <div>
+                  <% if(owner){ %>
+                  <form action="/edit-art" method=get>
+                      <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                      <button type="submit">Edit</button>
+                      <input type="hidden" name="artId" value="<%= itemList[i]._id %>">
+                  </form>
+                  <form action="/delete-art" method=get>
+                      <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                    <button type="submit">Delete</button>
+                    <input type="hidden" name="artId" value="<%= itemList[i]._id %>">
+                  </form>
+                  <%}%>
+                </div>
+              </li> 
+            <% } %>
+          </ul>
+      </div>
+
+      <section class="pagination">
+        <% if (currentPage != 1) { %>
+            <a href="/pr08/?page=1">1</a>
+        <% } %>
+        <% if (hasPreviousPage && (previousPage != 1)) { %>
+            <a href="/pr08/?page=<%= previousPage %>"><%= previousPage %></a>
+        <% } %>
+          <a href="/pr08/?page=<%= currentPage %>" class="active"><%= currentPage %></a>
+        <% if (hasNextPage && ((currentPage + 1 != lastPage))) { %>
+           <a href="/pr08/?page=<%= nextPage %>"><%= nextPage %></a>
+        <% } %>
+        <% if (lastPage != currentPage) { %>
+            <a href="/pr08/?page=<%= lastPage %>"><%= lastPage %></a>
+        <% } %>
+    </section>
+
+</body>
+</html>

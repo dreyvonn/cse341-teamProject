@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add</title>
+    <link rel="stylesheet" type="text/css" href="/css/main.css" />
+    <link rel="stylesheet" href="/css/auth.css">
+</head>
+<body>
+    <%- include ('../includes/navBar.ejs') %>
+    <div class="add-edit">
+        <div>
+            <form action="./add-art?_csrf=<%= csrfToken %>" method="POST" enctype="multipart/form-data" class="login-form">
+                <label for="title" class="label">Title</label><br>
+                <input type="text" name="title" id="title" class="input"><br>
+                <label for="description" class="label">Description</label><br>
+                <input type="text" name="description" id="decription" class="input"><br>
+                <label for="image" class="label">Image</label><br>
+                <input type="file" name="image" id="image" class="input"><br>
+                <label for="image" class="label">Tags: </label>
+                <input type="text" name="tags" id="tags" class="input"><br><br>
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
